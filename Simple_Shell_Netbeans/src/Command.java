@@ -1,5 +1,10 @@
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -17,8 +22,26 @@ public class Command {
      * Default constructor
      */
     public Command() {
-        // Leer el archivo de texto y armar commandList 
-        
+        try {
+            String[] files = 
+            
+            for (String file : files){
+                // Leer el archivo de texto y armar commandList
+                FileReader reader = new FileReader(file);
+                BufferedReader r = new BufferedReader(reader);
+
+                //
+                // Parse each line
+                //
+                while(r.ready()){
+                    String line = r.readLine();
+
+                }
+            }
+        } 
+        catch (Exception ex) {
+            Logger.getLogger(Command.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -42,7 +42,7 @@ public class UI {
         // Start shell 
         //
         while(true){
-            System.out.println("> ");
+            System.out.println("\n> ");
             
             //
             // and wait for command input.
@@ -56,17 +56,17 @@ public class UI {
                 
                 // Show shell command history.
                 case("history"):{
-                    TODO
+                    
                 }
                 
                 // Execute the first command in history.
                 case("!1"):{
-                    TODO
+                    
                 }
                 
                 // Execute the last command in history.
                 case("!#"):{
-                    TODO
+                    
                 }
                 
                 //

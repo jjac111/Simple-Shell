@@ -1,7 +1,9 @@
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.nio.file.Files;
+import java.io.File;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,20 +25,42 @@ public class Command {
      */
     public Command() {
         try {
-            String[] files = 
+            String dirName = "commands/";
+            ArrayList<String> files = new ArrayList<>();
+            
+            Files.list(new File(dirName).toPath())
+                .forEach(path -> {
+                    files.add(path.toString());
+                });
+            
             
             for (String file : files){
                 // Leer el archivo de texto y armar commandList
+                
+                String command = file.split("/")[1];
+                command = command.replace(".txt", "");
+                
                 FileReader reader = new FileReader(file);
                 BufferedReader r = new BufferedReader(reader);
-
+                ArrayList<String[]> options = new ArrayList<>();
+                
                 //
                 // Parse each line
                 //
                 while(r.ready()){
                     String line = r.readLine();
-
+                    
+                    // Remove leading and trailing spaces
+                    line = line.trim();
+                    
+                    String[] commandInfo = line.split("#");
+                    
+                    String[] parts_ = new String[]{commandInfo[0], commandInfo[1],  commandInfo[2]};
+                    
+                    options.add(parts_);
+                    
                 }
+                commandList.put(command, options);
             }
         } 
         catch (Exception ex) {
@@ -57,7 +81,7 @@ public class Command {
     public String excecute(String[] wholeCommand) {
         
         String output = "";
-        TODO;
+        
         // TODO implement here
         
         return output;
@@ -77,7 +101,7 @@ public class Command {
      * Returns a String[].
      */
     public String[] validate(String toParse) throws Exception{
-        TODO;
+        
         String[] commandParts = {};
 
         // TODO implement here
@@ -88,4 +112,7 @@ public class Command {
         return commandParts;
     }
 
+    public static void main(String[] args){
+        Command cmd = new Command();
+    }
 }

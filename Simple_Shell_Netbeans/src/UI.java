@@ -40,12 +40,12 @@ public class UI {
         Scanner scan = new Scanner(System.in);
         Command cmd = new Command();
         ArrayList<String> history = new ArrayList<>();
-        
         //
         // Start shell 
         //
         while(true){
             System.out.println("\n> ");
+
             
             //
             // and wait for command input.

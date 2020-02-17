@@ -1,4 +1,7 @@
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 
@@ -91,10 +94,13 @@ public class UI {
                         //
                         try{
                             // Check format
-                            String[] toExecute = cmd.validate(command);
+                            if(!cmd.validate(command)){
+                                throw new Exception("The input command is not an available command.");
+                            }
 
                             // Execute and print output
-                            String output = cmd.excecute(toExecute);
+                            String output = cmd.excecute(command);
+                            
                             System.out.println(output + "\n\n");
                         }
 
@@ -106,4 +112,6 @@ public class UI {
             }
         }
     }
+    
+    
 }

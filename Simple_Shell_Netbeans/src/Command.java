@@ -21,6 +21,7 @@ public class Command {
     public static ArrayList<String> commandList = new ArrayList<>();
     public static ProcessBuilder processBuilder = new ProcessBuilder();
     public static String currentDirectory = "C:\\"; // directorio inicial
+    public static String OS = System.getProperty("os.name");
 
     /**
      * Default constructor
@@ -64,8 +65,17 @@ public class Command {
 
         // run command
         try {
-            Process process = Runtime.getRuntime().exec(wholeCommand);
-            process.waitFor();
+            Process process;
+            if(OS.contains("Windows")){
+                ProcessBuilder processBuilder = new ProcessBuilder();
+                processBuilder.command("cmd.exe", "/c", wholeCommand);
+                process = processBuilder.start();
+                process.waitFor();
+            }
+            else{
+                process = Runtime.getRuntime().exec(wholeCommand);
+                process.waitFor();
+            }
 
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -102,9 +112,19 @@ public class Command {
         // processBuilder.command("cmd.exe", "/c","cd C:\\cygwin64\\bin && " + wholeCommand + " " + currentDirectory);
         // run ls command
         try {
-            Process process = Runtime.getRuntime().exec(wholeCommand + " " + currentDirectory);
-            process.waitFor();
-
+            
+                    
+            Process process;
+            if(OS.contains("Windows")){
+                ProcessBuilder processBuilder = new ProcessBuilder();
+                processBuilder.command("cmd.exe", "/c","cd C:\\cygwin64\\bin && " + wholeCommand + " " + currentDirectory);
+                process = processBuilder.start();
+                process.waitFor();
+            }
+            else{
+                process = Runtime.getRuntime().exec(wholeCommand);
+                process.waitFor();
+            }
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
 

@@ -14,6 +14,8 @@ public class UI {
     /**
      * Default constructor
      */
+    
+    
     public UI() {
     }
 
@@ -36,6 +38,9 @@ public class UI {
      * @param args
      */
     public static void main(String[] args) {
+        String OS = System.getProperty("os.name");
+        
+        System.out.println(OS);
         System.out.println("Simple Unix-ish Shell\n");
         Scanner scan = new Scanner(System.in);
         Command cmd = new Command();
@@ -73,18 +78,20 @@ public class UI {
 
                 // Execute the first command in history.
                 case("!1"):{
-                    System.out.println("First Command");
-                    String firstCommand = history.get(0); 
+                    
+                    String firstCommand = history.get(0);
                     input = firstCommand;
+                    System.out.println("First Command: " + input);
                     break;
                 }
 
                 // Execute the last command in history.
                 case("!#"):{
                     int history_length = history.size() - 1;
-                    System.out.println("Last command");
+                    
                     String lastCommand = history.get(history_length);
                     input = lastCommand;
+                    System.out.println("Last command: " + input);
                     break;
                             
                 }
@@ -93,47 +100,48 @@ public class UI {
                 // If not, attempt to execute shell command(s).
                 //
                 default:{
-                    
                     history.add(input);
                     if (history.size() >= 11) history.remove(0);
                 }
-                
-                if (!input.isEmpty()){
-                    //
-                    // Separate concatenated commands
-                    //
-                    String[] commands = parseCommands(input);
+            }
+            if (!input.isEmpty()){
+                //
+                // Separate concatenated commands
+                //
+                String[] commands = parseCommands(input);
+
+                //
+                // Check format and execute every command.
+                //
+                for (String command : commands){
 
                     //
-                    // Check format and execute every command.
+                    // Throws Exception in case that the format is wrong
                     //
-                    for (String command : commands){
-
-                        //
-                        // Throws Exception in case that the format is wrong
-                        //
-                        try{
-                            // Check format
-                            String output;
-                            if(!cmd.validate(command)){
-                                output = ">>> The input command "+command+" is not available.";
-                            }
-                            else if( command.split(" ")[0].equals("ls")){
-                                output = cmd.executeLs(command);
-                            }
-                            else{
-                                // Execute and print output
-                                output = cmd.excecute(command);
-                            }
-                            System.out.println(output);
+                    try{
+                        // Check format
+                        String output;
+                        if(!cmd.validate(command)){
+                            output = ">>> The input command "+command+" is not available.";
                         }
 
-                        catch(Exception e){
-                            System.err.println(e);
+                        else if( command.split(" ")[0].equals("ls")){
+                            output = cmd.executeLs(command);
                         }
+
+                        else{
+                            // Execute and print output
+                            output = cmd.excecute(command);
+                        }
+                        System.out.println(output);
+                    }
+
+                    catch(Exception e){
+                        System.err.println(e);
                     }
                 }
             }
+            
         }
     }
 

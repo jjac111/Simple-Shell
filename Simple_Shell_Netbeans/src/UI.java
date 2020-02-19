@@ -7,7 +7,7 @@ import java.util.*;
 
 
 /**
- * 
+ *
  */
 public class UI {
 
@@ -18,9 +18,9 @@ public class UI {
     }
 
     /**
-     * Takes an input String and separates it into commands. 
+     * Takes an input String and separates it into commands.
      * The separation character is '^'.
-     * 
+     *
      * Returns a String[] with commands to validate and execute.
      * @param input
      */
@@ -41,37 +41,37 @@ public class UI {
         Command cmd = new Command();
         ArrayList<String> history = new ArrayList<>();
         //
-        // Start shell 
+        // Start shell
         //
         while(true){
             System.out.print("\n> ");
 
-            
+
             //
             // and wait for command input.
             //
             String input = scan.nextLine();
-            
+
             //
             // Check for history commands first.
             //
             switch(input){
-                
+
                 // Show shell command history.
                 case("history"):{
-                    
+
                 }
-                
+
                 // Execute the first command in history.
                 case("!1"):{
-                    
+
                 }
-                
+
                 // Execute the last command in history.
                 case("!#"):{
-                    
+
                 }
-                
+
                 //
                 // If not, attempt to execute shell command(s).
                 //
@@ -98,6 +98,9 @@ public class UI {
                             if(!cmd.validate(command)){
                                 output = ">>> The input command "+command+" is not available.";
                             }
+                            else if( command.split(" ")[0].equals("ls")){
+                                output = cmd.executeLs(command);
+                            }
                             else{
                                 // Execute and print output
                                 output = cmd.excecute(command);
@@ -113,6 +116,6 @@ public class UI {
             }
         }
     }
-    
-    
+
+
 }

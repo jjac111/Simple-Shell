@@ -92,7 +92,7 @@ public class Command {
 
         ProcessBuilder processBuilder = new ProcessBuilder();
         // set the directory of cygwin bin and then if correct, set ls for running
-        processBuilder.command("cmd.exe", "/c", "cd C:\\cygwin64\\bin && ls");
+        processBuilder.command("cmd.exe", "/c", "cd C:\\cygwin64\\bin && " + wholeCommand);
 
         // run ls command
         try {

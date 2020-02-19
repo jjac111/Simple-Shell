@@ -60,11 +60,11 @@ public class Command {
         }
 
         // Contenido del proceso y que termine con apenas una corrida "/c"
-        processBuilder.command("cmd.exe", "/c", wholeCommand);
+        //processBuilder.command("cmd.exe", "/c", wholeCommand);
 
         // run command
         try {
-            Process process = processBuilder.start();
+            Process process = Runtime.getRuntime().exec(wholeCommand);
             process.waitFor();
 
             BufferedReader reader =
@@ -99,10 +99,10 @@ public class Command {
 
         // set the directory of cygwin bin and then if correct, set ls for running
         // processBuilder.command("cd C:\\cygwin64\\bin && " + wholeCommand + " " + currentDirectory);
-        processBuilder.command("cmd.exe", "/c","cd C:\\cygwin64\\bin && " + wholeCommand + " " + currentDirectory);
+        // processBuilder.command("cmd.exe", "/c","cd C:\\cygwin64\\bin && " + wholeCommand + " " + currentDirectory);
         // run ls command
         try {
-            Process process = processBuilder.start();
+            Process process = Runtime.getRuntime().exec(wholeCommand + " " + currentDirectory);
             process.waitFor();
 
             BufferedReader reader =

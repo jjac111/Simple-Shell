@@ -28,7 +28,7 @@ public class UI {
         //
         // Separate input into commands.
         //
-        String[] commands = input.split("^");
+        String[] commands = input.split("\\^");
         return commands;
     }
 
@@ -44,13 +44,13 @@ public class UI {
         // Start shell 
         //
         while(true){
-            System.out.println("\n> ");
+            System.out.print("\n> ");
 
             
             //
             // and wait for command input.
             //
-            String input = scan.next();
+            String input = scan.nextLine();
             
             //
             // Check for history commands first.
@@ -94,14 +94,15 @@ public class UI {
                         //
                         try{
                             // Check format
+                            String output;
                             if(!cmd.validate(command)){
-                                throw new Exception("The input command is not an available command.");
+                                output = ">>> The input command "+command+" is not available.";
                             }
-
-                            // Execute and print output
-                            String output = cmd.excecute(command);
-                            
-                            System.out.println(output + "\n\n");
+                            else{
+                                // Execute and print output
+                                output = cmd.excecute(command);
+                            }
+                            System.out.println(output);
                         }
 
                         catch(Exception e){

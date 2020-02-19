@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static jdk.nashorn.internal.objects.NativeFunction.call;
 
 /**
  * 
@@ -58,7 +57,8 @@ public class Command {
         
         try {
                 Process process = processBuilder.start();
-
+                process.waitFor();
+                
                 BufferedReader reader =
                         new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -73,7 +73,7 @@ public class Command {
                 output = resultadoComando;
             }
             // Captura input/output exception
-            catch (IOException e) {
+            catch (Exception e) {
                 e.printStackTrace();
             }
         

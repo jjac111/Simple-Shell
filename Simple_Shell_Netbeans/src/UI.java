@@ -57,7 +57,9 @@ public class UI {
             // Check for history commands first.
             //
             switch(input){
-
+                case("exit"):{
+                    return;
+                }
                 // Show shell command history.
                 case("history"):{
                     System.out.println("History");

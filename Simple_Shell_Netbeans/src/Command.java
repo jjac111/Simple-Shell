@@ -110,8 +110,10 @@ public class Command {
 
             // leer linea por linea del resultado de un comando
             // guardar ese contenido en una variable para el respectivo comando
+            
             String line;
             String resultadoComando = "";
+            
             while ((line = reader.readLine()) != null) {
                 resultadoComando += (line + '\n');
             }

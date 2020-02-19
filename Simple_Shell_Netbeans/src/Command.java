@@ -52,7 +52,7 @@ public class Command {
         String output = "";
         
         ProcessBuilder processBuilder = new ProcessBuilder();
-            // Content of the process and that it ends on the first run is given by "/c"
+            // Contenido del proceso y que termine con apenas una corrida "/c"
         processBuilder.command("cmd.exe", "/c", wholeCommand);
         
         try {
@@ -62,11 +62,15 @@ public class Command {
                 BufferedReader reader =
                         new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-                // read line per line the result of a command in terminal and save
+                // leer linea por linea del resultado de un comando
+                // guardar ese contenido en una variable para el respectivo comando
                 String line;
+                String resultadoComando = "";
                 while ((line = reader.readLine()) != null) {
-                    output += (line + '\n');
+                    resultadoComando += (line + '\n');
                 }
+
+                output = resultadoComando;
             }
             // Captura input/output exception
             catch (Exception e) {

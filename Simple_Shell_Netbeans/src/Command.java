@@ -19,6 +19,8 @@ public class Command {
     // Possible commands to be excecuted
     //
     public static ArrayList<String> commandList = new ArrayList<>();
+    public static ProcessBuilder processBuilder = new ProcessBuilder();
+    public static String currentDirectory = "C:\\"; // directorio inicial
 
     /**
      * Default constructor
@@ -51,7 +53,12 @@ public class Command {
 
         String output = "";
 
-        ProcessBuilder processBuilder = new ProcessBuilder();
+        // save current directory in case cd command passed
+        if( wholeCommand.split(" ")[0].equals("cd")){
+            String[] splitted = wholeCommand.split(" ");
+            currentDirectory = wholeCommand.split(" ")[splitted.length - 1]; // last argument in cd call
+        }
+
         // Contenido del proceso y que termine con apenas una corrida "/c"
         processBuilder.command("cmd.exe", "/c", wholeCommand);
 
@@ -90,10 +97,9 @@ public class Command {
     public String executeLs(String wholeCommand){
         String output = "";
 
-        ProcessBuilder processBuilder = new ProcessBuilder();
         // set the directory of cygwin bin and then if correct, set ls for running
-        processBuilder.command("cmd.exe", "/c", "cd C:\\cygwin64\\bin && " + wholeCommand);
-
+        // processBuilder.command("cd C:\\cygwin64\\bin && " + wholeCommand + " " + currentDirectory);
+        processBuilder.command("cmd.exe", "/c","cd C:\\cygwin64\\bin && " + wholeCommand + " " + currentDirectory);
         // run ls command
         try {
             Process process = processBuilder.start();
